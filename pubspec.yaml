@@ -16,6 +16,7 @@ dependencies:
   url_launcher: ^6.1.5
   qr_code_scanner: ^1.0.1
   image_picker: ^0.8.9
+  camera: ^0.10.5+2
 dev_dependencies: 
   flutter_test: 
     sdk: flutter
