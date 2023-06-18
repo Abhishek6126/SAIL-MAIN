@@ -5,8 +5,11 @@ import 'package:sail_test/presentation/landing_page_screen/landing_page_screen.d
 import 'package:sail_test/presentation/call_sms_screen/call_sms_screen.dart';
 import 'package:sail_test/presentation/report_screen/report_screen.dart';
 import 'package:sail_test/presentation/app_navigation_screen/app_navigation_screen.dart';
+import 'package:sail_test/splash_screen.dart';
 
 class AppRoutes {
+  static const String splashScreen = '/splash_screen';
+
   static const String loginScreen = '/login_screen';
 
   static const String qrCodeScreen = '/qr_code_screen';
@@ -20,6 +23,7 @@ class AppRoutes {
   static const String appNavigationScreen = '/app_navigation_screen';
 
   static Map<String, WidgetBuilder> routes = {
+    splashScreen: (context) => SplashScreen(),
     loginScreen: (context) => LoginScreen(),
     qrCodeScreen: (context) => QrCodeScreen(),
     landingPageScreen: (context) => LandingPageScreen(),
