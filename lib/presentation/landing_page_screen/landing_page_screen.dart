@@ -10,7 +10,7 @@ class LandingPageItemWidget extends StatelessWidget {
     required this.cardText,
   }) : super(key: key);
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String imagePath;
   final String cardText;
 
@@ -28,11 +28,10 @@ class LandingPageItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              decoration: BoxDecoration(
-              ),
+              decoration: BoxDecoration(),
               child: CustomImageView(
                 imagePath: imagePath,
-                margin: EdgeInsets.fromLTRB(1,15,1,15),
+                margin: EdgeInsets.fromLTRB(1, 15, 1, 15),
                 height: getVerticalSize(149),
                 width: getHorizontalSize(130),
                 radius: BorderRadius.circular(getHorizontalSize(22)),
@@ -70,115 +69,107 @@ class LandingPageScreen extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-      //body:
-      Container(
-        padding: EdgeInsets.fromLTRB(14, MediaQuery.of(context).padding.top + 30, 14, 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(right: 1),
-              padding: EdgeInsets.fromLTRB(12, 15, 12, 15),
-              decoration: AppDecoration.outlineBlack9003f.copyWith(
-                borderRadius: BorderRadiusStyle.roundedBorder32,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: getHorizontalSize(147),
-                    margin: EdgeInsets.only(left: 7),
-                    child: RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "WELCOME\n",
-                            style: TextStyle(
-                              color: ColorConstant.black900,
-                              fontSize: getFontSize(29),
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w700,
-                            ),
+          //body:
+          Container(
+            padding: EdgeInsets.fromLTRB(14, MediaQuery.of(context).padding.top + 30, 14, 30),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 1),
+                  padding: EdgeInsets.fromLTRB(12, 15, 12, 15),
+                  decoration: AppDecoration.outlineBlack9003f.copyWith(
+                    borderRadius: BorderRadiusStyle.roundedBorder32,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: getHorizontalSize(147),
+                        margin: EdgeInsets.only(left: 7),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "WELCOME\n",
+                                style: TextStyle(
+                                  color: ColorConstant.black900,
+                                  fontSize: getFontSize(29),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "USER",
+                                style: TextStyle(
+                                  color: ColorConstant.blue50002,
+                                  fontSize: getFontSize(29),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
                           ),
-                          TextSpan(
-                            text: "USER",
-                            style: TextStyle(
-                              color: ColorConstant.blue50002,
-                              fontSize: getFontSize(29),
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
+                          textAlign: TextAlign.left,
+                        ),
                       ),
-                      textAlign: TextAlign.left,
-                    ),
+                      CustomImageView(
+                        imagePath: ImageConstant.imgEllipse1,
+                        height: getVerticalSize(101),
+                        width: getHorizontalSize(71),
+                        radius: BorderRadius.circular(getHorizontalSize(33)),
+                        margin: EdgeInsets.only(top: 5, bottom: 4),
+                      ),
+                    ],
                   ),
-                  CustomImageView(
-                    imagePath: ImageConstant.imgEllipse1,
-                    height: getVerticalSize(101),
-                    width: getHorizontalSize(71),
-                    radius: BorderRadius.circular(getHorizontalSize(33)),
-                    margin: EdgeInsets.only(top: 5, bottom: 4),
+                ),
+                SizedBox(height: 1),
+                Expanded(
+                  child: StaggeredGridView.countBuilder(
+                    shrinkWrap: true,
+                    primary: false,
+                    physics: NeverScrollableScrollPhysics(),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: getHorizontalSize(11),
+                    mainAxisSpacing: getHorizontalSize(11),
+                    staggeredTileBuilder: (index) {
+                      return StaggeredTile.fit(1);
+                    },
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      VoidCallback? onTap;
+                      String imagePath = '';
+                      String cardText = '';
+
+                      if (index == 0) {
+                        onTap = () => onTapColumnqrcodeone(context);
+                        imagePath = ImageConstant.imgQrcode1;
+                        cardText = "QR\nScanner";
+                      } else if (index == 1) {
+                        // onTap = () => onTapColumnmilldata(context);
+                        imagePath = ImageConstant.img98591;
+                        cardText = "Mills\nReport";
+                      } else if (index == 2) {
+                        onTap = () => onTapColumnreport(context);
+                        imagePath = ImageConstant.img2448914383x81;
+                        cardText = "Grievance Report";
+                      } else if (index == 3) {
+                        onTap = () => onTapColumncallsms(context);
+                        imagePath = ImageConstant.imgCall1;
+                        cardText = "Call/SMS Peers";
+                      }
+
+                      return LandingPageItemWidget(
+                        onTap: onTap,
+                        imagePath: imagePath,
+                        cardText: cardText,
+                      );
+                    },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(height: 1),
-            Expanded(
-              child: StaggeredGridView.countBuilder(
-                shrinkWrap: true,
-                primary: false,
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                crossAxisSpacing: getHorizontalSize(11),
-                mainAxisSpacing: getHorizontalSize(11),
-                staggeredTileBuilder: (index) {
-                  return StaggeredTile.fit(1);
-                },
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  VoidCallback? onTap;
-                  String imagePath = '';
-                  String cardText = '';
-
-                  if (index == 0) {
-                    onTap = () {
-                      onTapColumnqrcodeone(context);
-                    };
-                    imagePath = ImageConstant.imgQrcode1;
-                    cardText = "QR\nScanner";
-                  } else if (index == 1) {
-                    onTap = () {
-                      // onTapColumnmilldata(context);
-                    };
-                    imagePath = ImageConstant.img98591;
-                    cardText = "Mills\nReport";
-                  } else if (index == 2) {
-                    onTap = () {
-                      onTapColumnreport(context);
-                    };
-                    imagePath = ImageConstant.img2448914383x81;
-                    cardText = "Grievance Report";
-                  } else if (index == 3) {
-                    onTap = () {
-                      onTapColumncallsms(context);
-                    };
-                    imagePath = ImageConstant.imgCall1;
-                    cardText = "Call/SMS Peers";
-                  }
-
-                  return LandingPageItemWidget(
-                    onTap: onTap!,
-                    imagePath: imagePath,
-                    cardText: cardText,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
         ],
       ),
     );
