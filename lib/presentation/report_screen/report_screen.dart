@@ -356,4 +356,4 @@ class CustomImageView extends StatelessWidget {
       );
     }
   }
-}
+}//end

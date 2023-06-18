@@ -229,4 +229,4 @@ class _LoginScreenState extends State<LoginScreen> {
   void onTapLogin(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.landingPageScreen);
   }
-}
+}//end

@@ -142,7 +142,7 @@ class BorderRadiusStyle {
       18,
     ),
   );
-}
+}//end
 
 // Comment/Uncomment the below code based on your Flutter SDK version.
 
