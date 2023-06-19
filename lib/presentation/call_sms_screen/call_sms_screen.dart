@@ -63,16 +63,16 @@ class _CallSmsScreenState extends State<CallSmsScreen> {
                             String phoneNumber = '';
 
                             if (index == 0) {
-                              name = 'John Doe';
-                              position = 'Manager';
-                              phoneNumber = '1234567890';
+                              name = 'Arun Kotnis';
+                              position = 'General Manager';
+                              phoneNumber = '9407982428';
                             } else if (index == 1) {
-                              name = 'Jane Smith';
-                              position = 'Supervisor';
+                              name = 'Akshat Pandey';
+                              position = 'Intern';
                               phoneNumber = '23232';
                             } else if (index == 2) {
-                              name = 'Michael Johnson';
-                              position = 'Engineer';
+                              name = 'Abhishek Pandey';
+                              position = 'Intern';
                               phoneNumber = '232323';
                             } else if (index == 3) {
                               name = 'Emily Brown';

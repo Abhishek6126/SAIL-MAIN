@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/background.png', // Replace with your actual image path
+              'assets/images/background3.png', // Replace with your actual image path
               fit: BoxFit.cover,
             ),
           ),
@@ -69,30 +69,33 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(
-                  16.0, 16.0, 16.0, 2.0), // Adjust the padding as needed
-              child: Container(
-                padding: EdgeInsets.all(
-                    27.0), // Adjust the padding within the container as needed
-                child: FittedBox(
-                  fit: BoxFit
-                      .scaleDown, // Adjust the fit property to scale down the image
-                  alignment:
-                      Alignment.bottomCenter, // Adjust the alignment to bottom
-                  child: CustomImageView(
-                    imagePath: ImageConstant.imgSaillogo1,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Text(
+          // Expanded(
+          //   child: Padding(
+          //     padding: EdgeInsets.fromLTRB(
+          //         16.0, 16.0, 16.0, 2.0), // Adjust the padding as needed
+          //     child: Container(
+          //       padding: EdgeInsets.all(
+          //           27.0), // Adjust the padding within the container as needed
+          //       child: FittedBox(
+          //         fit: BoxFit
+          //             .scaleDown, // Adjust the fit property to scale down the image
+          //         alignment:
+          //             Alignment.bottomCenter, // Adjust the alignment to bottom
+          //         child: CustomImageView(
+          //           imagePath: ImageConstant.imgSaillogo1,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          Padding(
+            padding: EdgeInsets.only(top: getVerticalSize(326)),
+            child: Text(
             "MES APP",
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: AppStyle.txtPoppinsExtraBold35,
+          ),
           ),
           Text(
             "LOGIN",

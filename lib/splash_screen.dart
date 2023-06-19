@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen>
       if (_isAnimationComplete) {
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(
-            transitionDuration: Duration(milliseconds: 900),
+            transitionDuration: Duration(milliseconds: 1200),
             pageBuilder: (_, __, ___) => LoginScreen(),
             transitionsBuilder:
                 (_, Animation<double> animation, __, Widget child) {
@@ -98,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
                     SizedBox(height: 0.2 * imageSize),
                     Text(
-                      'MES APP\nBSP,SAIL',
+                      'MES APP\nBSP(SAIL)',
                       style: TextStyle(
                         fontSize: 0.2 * imageSize,
                         fontWeight: FontWeight.bold,

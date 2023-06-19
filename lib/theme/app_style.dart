@@ -5,7 +5,7 @@ class AppStyle {
   static TextStyle txtPoppinsBold48 = TextStyle(
     color: ColorConstant.indigo500,
     fontSize: getFontSize(
-      48,
+      40,
     ),
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w700,
