@@ -1,30 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sail_test/core/app_export.dart';
-// import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QrCodeScreen extends StatelessWidget {
   const QrCodeScreen({Key? key}) : super(key: key);
-
-  void _scanQRCode(BuildContext context) async {
-    final qrCodeKey = GlobalKey(debugLabel: 'QR');
-
-    final result = await Navigator.push<String>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => QRViewExample(
-          qrCodeKey: qrCodeKey,
-        ),
-      ),
-    );
-
-    // Handle the scanned data
-    if (result != null) {
-      print('Scanned QR code: $result');
-      // Do something with the scanned QR code
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -138,7 +116,7 @@ class QrCodeScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      _scanQRCode(context);
+                      
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -220,47 +198,5 @@ class QrCodeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class QRViewExample extends StatefulWidget {
-  final GlobalKey qrCodeKey;
-
-  const QRViewExample({required this.qrCodeKey});
-
-  @override
-  _QRViewExampleState createState() => _QRViewExampleState();
-}
-
-class _QRViewExampleState extends State<QRViewExample> {
-  QRViewController? controller;
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: QRView(
-        key: widget.qrCodeKey,
-        onQRViewCreated: _onQRViewCreated,
-      ),
-    );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-
-    controller.scannedDataStream.listen((scanData) {
-      if (scanData.code!.isNotEmpty) {
-        // Pass the scanned data back to the previous screen
-        Navigator.pop(context, scanData.code);
-      }
-    });
   }
 }
