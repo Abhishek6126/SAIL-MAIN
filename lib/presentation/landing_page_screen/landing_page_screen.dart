@@ -146,7 +146,7 @@ class LandingPageScreen extends StatelessWidget {
                         imagePath = ImageConstant.imgQrcode1;
                         cardText = "QR\nScanner";
                       } else if (index == 1) {
-                        // onTap = () => onTapColumnmilldata(context);
+                        onTap = () => onTapColumnmilldata(context);
                         imagePath = ImageConstant.img98591;
                         cardText = "Mills\nReport";
                       } else if (index == 2) {
@@ -179,9 +179,9 @@ class LandingPageScreen extends StatelessWidget {
     Navigator.pushNamed(context, AppRoutes.qrCodeScreen);
   }
 
-  // onTapColumnmilldata(BuildContext context) {
-  //   Navigator.pushNamed(context, AppRoutes.mailScreen);
-  // }
+  onTapColumnmilldata(BuildContext context) {
+    Navigator.pushNamed(context, AppRoutes.millsScreen);
+  }
 
   onTapColumnreport(BuildContext context) {
     Navigator.pushNamed(context, AppRoutes.reportScreen);
