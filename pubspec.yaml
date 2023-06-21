@@ -2,7 +2,7 @@ name: sail_test
 description: A Flutter app for MES Department, BSP.
 version: 1.0.0+1
 environment: 
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: ">=2.19.2 <3.0.0"
 dependencies: 
   flutter: 
     sdk: flutter
