@@ -13,14 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Data Fetcher',
       onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/':
-            return MaterialPageRoute(builder: (_) => const MillScreen());
-          case '/fetch_data':
-            return MaterialPageRoute(builder: (_) => const TableDataPage());
-          default:
-            return null;
-        }
+        return MaterialPageRoute(builder: (_) => TableDataPage());
       },
       initialRoute: '/',
     );
@@ -44,6 +37,6 @@ class MillScreen extends StatelessWidget {
           child: const Text('Fetch Data'),
         ),
      ),
-     );
-     }
+    );
+  }
 }
