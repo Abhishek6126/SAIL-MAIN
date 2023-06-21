@@ -1,4 +1,3 @@
-export 'package:sail_test/core/constants/constants.dart';
 export 'package:sail_test/core/utils/image_constant.dart';
 export 'package:sail_test/core/utils/color_constant.dart';
 export 'package:sail_test/core/utils/size_utils.dart';
