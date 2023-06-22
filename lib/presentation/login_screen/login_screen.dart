@@ -232,67 +232,67 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onTapLogin(BuildContext context) async {
-    Navigator.pushNamed(context, AppRoutes.landingPageScreen);
-    // final String username = _usernameController.text;
-    // final String password = _passwordController.text;
-    // if (username.isNotEmpty && password.isNotEmpty) {
-    //   // Replace the API endpoint with your own
-    //   final url = Uri.parse('http://192.168.43.202:3000/login');
+    // Navigator.pushNamed(context, AppRoutes.landingPageScreen);
+    final String username = _usernameController.text;
+    final String password = _passwordController.text;
+    if (username.isNotEmpty && password.isNotEmpty) {
+      // Replace the API endpoint with your own
+      final url = Uri.parse('http://192.168.43.202:3000/login');
 
-    //   try {
-    //     final response = await http.post(
-    //       url,headers: {'Content-Type': 'application/json'},
-    //       body: jsonEncode({
-    //         'username': username,
-    //         'password': password,
-    //       })
-    //     );
+      try {
+        final response = await http.post(
+          url,headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
+            'username': username,
+            'password': password,
+          })
+        );
 
-    //     if (response.statusCode == 200) {
-    //       // Login successful, navigate to the landing page
-    //       Navigator.pushNamed(context, AppRoutes.landingPageScreen);
-    //     } else {
-    //       // Login failed, show an error dialog
-    //       showDialog(
-    //         context: context,
-    //         builder: (BuildContext context) {
-    //           return AlertDialog(
-    //             title: Text('Error'),
-    //             content: Text('Login failed. Please try again.'),
-    //             actions: [
-    //               TextButton(
-    //                 onPressed: () {
-    //                   Navigator.of(context).pop();
-    //                 },
-    //                 child: Text('OK'),
-    //               ),
-    //             ],
-    //           );
-    //         },
-    //       );
-    //     }
-    //   } catch (e) {
-    //     print('Error: $e');
-    //     // Handle the error appropriately
-    //   }
-    // } else {
-    //   showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         title: Text('Error'),
-    //         content: Text('Please enter a username and password.'),
-    //         actions: [
-    //           TextButton(
-    //             onPressed: () {
-    //               Navigator.of(context).pop();
-    //             },
-    //             child: Text('OK'),
-    //           ),
-    //         ],
-    //       );
-    //     },
-    //   );
-    // }
+        if (response.statusCode == 200) {
+          // Login successful, navigate to the landing page
+          Navigator.pushNamed(context, AppRoutes.landingPageScreen);
+        } else {
+          // Login failed, show an error dialog
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Error'),
+                content: Text('Login failed. Please try again.'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      } catch (e) {
+        print('Error: $e');
+        // Handle the error appropriately
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Please enter a username and password.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }
