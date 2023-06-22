@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sail_test/core/app_export.dart';
 import 'package:sail_test/widgets/custom_text_form_field.dart';
+import 'package:http/http.dart' as http;
 
 class ReportScreen extends StatefulWidget {
   ReportScreen({Key? key}) : super(key: key);
@@ -16,17 +17,7 @@ class _ReportScreenState extends State<ReportScreen> {
   TextEditingController timeController = TextEditingController();
   TextEditingController groupsixteenController = TextEditingController();
   File? pickedImage;
-  // void _showToast() {
-  //     Fluttertoast.showToast(
-  //       msg: 'Button Clicked!',
-  //       toastLength: Toast.LENGTH_SHORT,
-  //       gravity: ToastGravity.CENTER,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.grey[700],
-  //       textColor: Colors.white,
-  //       fontSize: 16.0,
-  //     );
-  //   }
+
 
   Future<void> _openCamera() async {
     final imagePicker = ImagePicker();
@@ -39,284 +30,352 @@ class _ReportScreenState extends State<ReportScreen> {
       });
     }
   }
+  Future<void> _uploadImage() async {
+    if (pickedImage == null) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Please select an image.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
+    final url = 'http://192.168.43.202:3000/upload';
+
+    var request = http.MultipartRequest('POST', Uri.parse(url));
+    request.files.add(await http.MultipartFile.fromPath('image', pickedImage!.path));
+    request.fields['description'] = groupsixteenController.text;
+    request.fields['location'] = locationController.text;
+    request.fields['time'] = timeController.text;
+
+    var response = await request.send();
+
+    if (response.statusCode == 200) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Success'),
+            content: Text('Image uploaded successfully.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Failed to upload image.'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Unfocus any active text fields
     FocusScope.of(context).requestFocus(FocusNode());
-
     return GestureDetector(
-        onTap: () {
-          // Unfocus any active text fields when tapping outside
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: Scaffold(
-          // backgroundColor: ColorConstant.gray10001,
-          resizeToAvoidBottomInset: false,
-          body: Stack(
-            children: [
-              Positioned.fill(
-                child: Image.asset(
-                  'assets/images/background2.png', // Replace with your actual image path
-                  fit: BoxFit.cover,
-                ),
+      onTap: () {
+        // Unfocus any active text fields when tapping outside
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        // backgroundColor: ColorConstant.gray10001,
+        resizeToAvoidBottomInset: false,
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/background2.png', // Replace with your actual image path
+                fit: BoxFit.cover,
               ),
-              //body:
-              SingleChildScrollView(
-                child: Container(
-                  width: double.maxFinite,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 46,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 1),
-                        padding: EdgeInsets.fromLTRB(14, 7, 14, 7),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(32),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: getHorizontalSize(162),
-                              margin:
-                                  EdgeInsets.only(left: 9, top: 5, bottom: 2),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: "GRIEVANCE\n",
-                                      style: TextStyle(
-                                        color: ColorConstant.black900,
-                                        fontSize: getFontSize(28),
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w700,
-                                      ),
+            ),
+            //body:
+            SingleChildScrollView(
+              child: Container(
+                width: double.maxFinite,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 46,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 1),
+                      padding: EdgeInsets.fromLTRB(14, 7, 14, 7),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(32),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: getHorizontalSize(162),
+                            margin:
+                                EdgeInsets.only(left: 9, top: 5, bottom: 2),
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "GRIEVANCE\n",
+                                    style: TextStyle(
+                                      color: ColorConstant.black900,
+                                      fontSize: getFontSize(28),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                    TextSpan(
-                                      text: "REPORT",
-                                      style: TextStyle(
-                                        color: ColorConstant.blue50001,
-                                        fontSize: getFontSize(28),
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                  ),
+                                  TextSpan(
+                                    text: "REPORT",
+                                    style: TextStyle(
+                                      color: ColorConstant.blue50001,
+                                      fontSize: getFontSize(28),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                  ],
-                                ),
-                                textAlign: TextAlign.left,
-                              ),
-                            ),
-                            Container(
-                              width: getHorizontalSize(81),
-                              height: getVerticalSize(83),
-                              margin: EdgeInsets.only(top: 2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 5,
-                                    offset: Offset(0, 3),
                                   ),
                                 ],
                               ),
-                              child: CustomImageView(
-                                imagePath: ImageConstant.img2448914383x81,
-                                radius: BorderRadius.circular(
-                                    getHorizontalSize(22)),
-                              ),
+                              textAlign: TextAlign.left,
                             ),
-                          ],
-                        ),
+                          ),
+                          Container(
+                            width: getHorizontalSize(81),
+                            height: getVerticalSize(83),
+                            margin: EdgeInsets.only(top: 2),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(22),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
+                            ),
+                            child: CustomImageView(
+                              imagePath: ImageConstant.img2448914383x81,
+                              radius: BorderRadius.circular(
+                                  getHorizontalSize(22)),
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 24),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(19, 0, 17, 0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: ColorConstant.blue50,
+                    ),
+                    SizedBox(height: 24),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(19, 0, 17, 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
                           ),
-                          child: CustomTextFormField(
-                            focusNode: FocusNode(),
-                            autofocus: true,
-                            controller: locationController,
-                            initialValue: "",
-                            hintText: "Location",
-                            margin: EdgeInsets.zero,
-                          ),
-                        ),
+                        ],
                       ),
-                      SizedBox(height: 7),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(19, 7, 17, 0),
+                      child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white,
                           borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: ColorConstant.blue50,
-                          ),
-                          child: CustomTextFormField(
-                            focusNode: FocusNode(),
-                            autofocus: true,
-                            controller: timeController,
-                            initialValue: "",
-                            hintText: "Time of event",
-                            margin: EdgeInsets.zero,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 7),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(19, 7, 17, 0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
+                          color: ColorConstant.blue50,
                         ),
                         child: CustomTextFormField(
                           focusNode: FocusNode(),
                           autofocus: true,
-                          controller: groupsixteenController,
+                          controller: locationController,
                           initialValue: "",
-                          hintText: "Describe briefly",
+                          hintText: "Location",
                           margin: EdgeInsets.zero,
-                          padding: TextFormFieldPadding.PaddingT27,
-                          textInputAction: TextInputAction.done,
-                          maxLines: 4,
                         ),
                       ),
-                      Container(
-                        width: getHorizontalSize(261),
-                        margin: EdgeInsets.fromLTRB(35, 12, 35, 0),
-                        child: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: "\nClick ",
-                                style: TextStyle(
-                                  color: ColorConstant.indigo500,
-                                  fontSize: getFontSize(24),
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              TextSpan(
-                                text: "below image to capture image of event (optional)",
-                                style: TextStyle(
-                                  color: ColorConstant.gray80001,
-                                  fontSize: getFontSize(24),
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
+                    ),
+                    SizedBox(height: 7),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(19, 7, 17, 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
                           ),
-                          textAlign: TextAlign.center,
+                        ],
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: ColorConstant.blue50,
+                        ),
+                        child: CustomTextFormField(
+                          focusNode: FocusNode(),
+                          autofocus: true,
+                          controller: timeController,
+                          initialValue: "",
+                          hintText: "Time of event",
+                          margin: EdgeInsets.zero,
                         ),
                       ),
-                      Container(
-                        height: getVerticalSize(200),
-                        width: getHorizontalSize(170),
-                        margin: EdgeInsets.only(top: 24),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3),
+                    ),
+                    SizedBox(height: 7),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(19, 7, 17, 0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: CustomTextFormField(
+                        focusNode: FocusNode(),
+                        autofocus: true,
+                        controller: groupsixteenController,
+                        initialValue: "",
+                        hintText: "Describe briefly",
+                        margin: EdgeInsets.zero,
+                        padding: TextFormFieldPadding.PaddingT27,
+                        textInputAction: TextInputAction.done,
+                        maxLines: 4,
+                      ),
+                    ),
+                    Container(
+                      width: getHorizontalSize(261),
+                      margin: EdgeInsets.fromLTRB(35, 12, 35, 0),
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "\nClick ",
+                              style: TextStyle(
+                                color: ColorConstant.indigo500,
+                                fontSize: getFontSize(24),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "below image to capture image of event (optional)",
+                              style: TextStyle(
+                                color: ColorConstant.gray80001,
+                                fontSize: getFontSize(24),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ],
                         ),
-                        child: GestureDetector(
-                          onTap: _openCamera,
-                          child: CustomImageView(
-                            imagePath: pickedImage != null
-                                ? pickedImage!.path
-                                : ImageConstant.imgUploadimage1,
-                            radius: BorderRadius.circular(20),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      height: getVerticalSize(200),
+                      width: getHorizontalSize(170),
+                      margin: EdgeInsets.only(top: 24),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: GestureDetector(
+                        onTap: _openCamera,
+                        child: CustomImageView(
+                          imagePath: pickedImage != null
+                              ? pickedImage!.path
+                              : ImageConstant.imgUploadimage1,
+                          radius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                    
+                    SizedBox(height: 10),
+                    InkWell(
+                      onTap: _uploadImage,
+                      child: Container(
+                        width: getHorizontalSize(296),
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        decoration: AppDecoration.txtFillBlue900.copyWith(
+                          borderRadius: BorderRadiusStyle.txtRoundedBorder25,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "SUBMIT",
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: AppStyle.txtPoppinsBold31,
                           ),
                         ),
                       ),
-                      
-                      SizedBox(height: 10),
-                      InkWell(
-                        // onTap: _showToast,
-                        child: Container(
-                          width: getHorizontalSize(296),
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                          padding: EdgeInsets.symmetric(vertical: 6),
-                          decoration: AppDecoration.txtFillBlue900.copyWith(
-                            borderRadius: BorderRadiusStyle.txtRoundedBorder25,
-                          ),
-                          child: Center(
-                            child: Text(
-                              "SUBMIT",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: AppStyle.txtPoppinsBold31,
-                            ),
-                          ),
-                        ),
-                      ),
+                    ),
 
-                      // ),
-                      SizedBox(height: 20),
-                    ],
-                  ),
+                    // ),
+                    SizedBox(height: 20),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }
 
