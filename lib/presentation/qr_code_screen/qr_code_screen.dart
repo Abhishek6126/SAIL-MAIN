@@ -36,8 +36,8 @@ class QrCodeScreenState extends State<QrCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+      return Scaffold(
+        backgroundColor: ColorConstant.gray10001,
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           // Wrap the content with SingleChildScrollView
@@ -53,7 +53,7 @@ class QrCodeScreenState extends State<QrCodeScreen> {
                 width: double.maxFinite,
                 padding: getPadding(
                   left: 13,
-                  top: 44,
+                  top: 54,
                   right: 13,
                   bottom: 44,
                 ),
@@ -85,7 +85,7 @@ class QrCodeScreenState extends State<QrCodeScreen> {
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: "QR\n",
+                                    text: "QR CODE\n",
                                     style: TextStyle(
                                       color: ColorConstant.black900,
                                       fontSize: getFontSize(
@@ -217,7 +217,7 @@ class QrCodeScreenState extends State<QrCodeScreen> {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            if (_scanBarcode != "-1") // Only show when _scanBarcode is not empty
+                            if (_scanBarcode != "-1" && _scanBarcode.isNotEmpty)  // Only show when _scanBarcode is not empty
                               TextSpan(
                                 text: "\n\n\nQR OUTPUT: \n$_scanBarcode",
                                 style: TextStyle(
@@ -227,6 +227,7 @@ class QrCodeScreenState extends State<QrCodeScreen> {
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
+                              
                           ],
                         ),
                         textAlign: TextAlign.center,
@@ -238,7 +239,6 @@ class QrCodeScreenState extends State<QrCodeScreen> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

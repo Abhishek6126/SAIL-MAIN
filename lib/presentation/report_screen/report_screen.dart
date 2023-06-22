@@ -144,60 +144,6 @@ class _ReportScreenState extends State<ReportScreen> {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   height: getVerticalSize(200),
-                      //   width: getHorizontalSize(170),
-                      //   margin: EdgeInsets.only(top: 24),
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(40),
-                      //     boxShadow: [
-                      //       BoxShadow(
-                      //         color: Colors.grey.withOpacity(0.5),
-                      //         spreadRadius: 2,
-                      //         blurRadius: 5,
-                      //         offset: Offset(0, 3),
-                      //       ),
-                      //     ],
-                      //   ),
-                      //   child: GestureDetector(
-                      //     onTap: _openCamera,
-                      //     child: CustomImageView(
-                      //       imagePath: pickedImage != null
-                      //           ? pickedImage!.path
-                      //           : ImageConstant.imgUploadimage1,
-                      //       radius: BorderRadius.circular(20),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   width: getHorizontalSize(261),
-                      //   margin: EdgeInsets.fromLTRB(35, 12, 35, 0),
-                      //   child: RichText(
-                      //     text: TextSpan(
-                      //       children: [
-                      //         TextSpan(
-                      //           text: "Click ",
-                      //           style: TextStyle(
-                      //             color: ColorConstant.indigo500,
-                      //             fontSize: getFontSize(24),
-                      //             fontFamily: 'Poppins',
-                      //             fontWeight: FontWeight.w700,
-                      //           ),
-                      //         ),
-                      //         TextSpan(
-                      //           text: "above image to capture",
-                      //           style: TextStyle(
-                      //             color: ColorConstant.gray80001,
-                      //             fontSize: getFontSize(24),
-                      //             fontFamily: 'Poppins',
-                      //             fontWeight: FontWeight.w700,
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //     textAlign: TextAlign.center,
-                      //   ),
-                      // ),
                       SizedBox(height: 24),
                       Container(
                         margin: EdgeInsets.fromLTRB(19, 0, 17, 0),
@@ -292,7 +238,7 @@ class _ReportScreenState extends State<ReportScreen> {
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: "Click ",
+                                text: "\nClick ",
                                 style: TextStyle(
                                   color: ColorConstant.indigo500,
                                   fontSize: getFontSize(24),
