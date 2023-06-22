@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:sail_test/core/app_export.dart';
 import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(const QrCodeScreen());
 
@@ -31,7 +33,28 @@ class QrCodeScreenState extends State<QrCodeScreen> {
 
     setState(() {
       _scanBarcode = barcodeScanRes;
+      sendQRDataToServer();
     });
+  }
+  Future<void> sendQRDataToServer() async {
+    if (_scanBarcode.isNotEmpty) {
+      final url = Uri.parse('http://192.168.43.202:3000/qrdata'); // Replace with your Node.js server endpoint
+      final headers = {'Content-Type': 'application/json'};
+      final body = json.encode({'data': _scanBarcode});
+
+      try {
+        final response = await http.post(url, headers: headers, body: body);
+        if (response.statusCode == 200) {
+          // Successful request
+          print('QR data sent successfully');
+        } else {
+          // Error occurred
+          print('Error sending QR data. Status code: ${response.statusCode}');
+        }
+      } catch (e) {
+        print('Error sending QR data: $e');
+      }
+    }
   }
 
   @override

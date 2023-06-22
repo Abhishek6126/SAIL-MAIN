@@ -68,6 +68,6 @@ class _TableDataPageState extends State<TableDataPage> {
           );
         },
      ),
-     );
-     }
+    );
+  }
 }

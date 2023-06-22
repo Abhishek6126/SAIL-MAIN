@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:sail_test/core/app_export.dart';
 import 'package:sail_test/widgets/custom_button.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 void main() {
@@ -140,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String imagePath,
     String hintText,
     EdgeInsets margin, {
-    bool isPasswordField = false,
+      bool isPasswordField = false,
   }) {
     return Container(
       margin: margin,
@@ -232,20 +233,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onTapLogin(BuildContext context) async {
+    // Navigator.pushNamed(context, AppRoutes.landingPageScreen);
     final String username = _usernameController.text;
     final String password = _passwordController.text;
-
     if (username.isNotEmpty && password.isNotEmpty) {
       // Replace the API endpoint with your own
-      final url = Uri.parse('https://api.example.com/login');
+      final url = Uri.parse('http://192.168.43.202:3000/login');
 
       try {
         final response = await http.post(
-          url,
-          body: {
+          url,headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({
             'username': username,
             'password': password,
-          },
+          })
         );
 
         if (response.statusCode == 200) {
