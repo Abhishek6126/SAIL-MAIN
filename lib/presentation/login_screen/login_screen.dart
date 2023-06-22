@@ -240,13 +240,12 @@ class _LoginScreenState extends State<LoginScreen> {
       final url = Uri.parse('http://192.168.43.202:3000/login');
 
       try {
-        final response = await http.post(
-          url,headers: {'Content-Type': 'application/json'},
-          body: jsonEncode({
-            'username': username,
-            'password': password,
-          })
-        );
+        final response = await http.post(url,
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode({
+              'username': username,
+              'password': password,
+            }));
 
         if (response.statusCode == 200) {
           // Login successful, navigate to the landing page
