@@ -1,7 +1,6 @@
 import '../../core/app_export.dart';
 import '../call_sms_screen/widgets/callsms_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:sail_test/widgets/app_bar/custom_app_bar.dart';
 
 class CallSmsScreen extends StatefulWidget {
   const CallSmsScreen({Key? key}) : super(key: key);
