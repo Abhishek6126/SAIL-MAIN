@@ -217,17 +217,16 @@ class QrCodeScreenState extends State<QrCodeScreen> {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            TextSpan(
-                              text: "\n\n\nQR OUTPUT: \n$_scanBarcode",
-                              style: TextStyle(
-                                color: ColorConstant.indigo500,
-                                fontSize: getFontSize(
-                                  22,
+                            if (_scanBarcode != "-1") // Only show when _scanBarcode is not empty
+                              TextSpan(
+                                text: "\n\n\nQR OUTPUT: \n$_scanBarcode",
+                                style: TextStyle(
+                                  color: ColorConstant.indigo500,
+                                  fontSize: getFontSize(22),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
                                 ),
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w700,
                               ),
-                            ),
                           ],
                         ),
                         textAlign: TextAlign.center,
