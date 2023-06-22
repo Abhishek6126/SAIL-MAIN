@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import '../../core/app_export.dart';
 
 class MillScreen extends StatefulWidget {
   const MillScreen({Key? key}) : super(key: key);
@@ -37,37 +38,138 @@ class _MillScreenState extends State<MillScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Table Data'),
-      ),
-      body: ListView.builder(
-        itemCount: _tableData.length,
-        itemBuilder: (context, index) {
-          final MILL_NAME = _tableData[index][0];
-          final PRODUCTION = _tableData[index][1];
-
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  MILL_NAME,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                Text(
-                  'Production: $PRODUCTION',
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background1.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-          );
-        },
+          ),
+          SingleChildScrollView(
+            child: Container(
+              padding: getPadding(
+                left: 13,
+                top: 61,
+                right: 13,
+                bottom: 41,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: getMargin(
+                      bottom: 5,
+                    ),
+                    padding: getPadding(
+                      left: 17,
+                      top: 4,
+                      right: 17,
+                      bottom: 4,
+                    ),
+                    decoration: AppDecoration.outlineBlack9003f.copyWith(
+                      borderRadius: BorderRadiusStyle.roundedBorder32,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: getHorizontalSize(
+                            90,
+                          ),
+                          margin: getMargin(
+                            left: 6,
+                            top: 2,
+                          ),
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "MILLS\n",
+                                  style: TextStyle(
+                                    color: ColorConstant.black900,
+                                    fontSize: getFontSize(
+                                      32,
+                                    ),
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "DATA",
+                                  style: TextStyle(
+                                    color: ColorConstant.blue50001,
+                                    fontSize: getFontSize(
+                                      32,
+                                    ),
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        CustomImageView(
+                          imagePath: ImageConstant.img98591,
+                          height: getVerticalSize(
+                            79,
+                          ),
+                          width: getHorizontalSize(
+                            83,
+                          ),
+                          radius: BorderRadius.circular(
+                            getHorizontalSize(
+                              22,
+                            ),
+                          ),
+                          margin: getMargin(
+                            top: 8,
+                            bottom: 4,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: _tableData.length,
+                    itemBuilder: (context, index) {
+                      final MILL_NAME = _tableData[index][0];
+                      final PRODUCTION = _tableData[index][1];
+
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 1),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              MILL_NAME,
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            Text(
+                              'Production: $PRODUCTION',
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+
 }

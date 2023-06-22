@@ -20,7 +20,7 @@ class _CallSmsScreenState extends State<CallSmsScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/background2.png', // Replace with your actual image path
+              'assets/images/background1.png', // Replace with your actual image path
               fit: BoxFit.cover,
             ),
           ),
