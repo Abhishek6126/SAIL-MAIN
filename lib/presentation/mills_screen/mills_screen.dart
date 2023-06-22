@@ -1,42 +1,73 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'fetch_data.dart';
+import 'package:http/http.dart' as http;
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MillScreen extends StatefulWidget {
+  const MillScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Data Fetcher',
-      onGenerateRoute: (settings) {
-        return MaterialPageRoute(builder: (_) => TableDataPage());
-      },
-      initialRoute: '/',
-    );
-  }
+  State<MillScreen> createState() => _MillScreenState();
 }
 
-class MillScreen extends StatelessWidget {
-  const MillScreen({Key? key}) : super(key: key);
+class _MillScreenState extends State<MillScreen> {
+  List<dynamic> _tableData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchTableData();
+  }
+
+  Future<void> fetchTableData() async {
+    try {
+      final response = await http.get(Uri.parse('http://192.168.43.202:3000/MILL_DATA'));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        setState(() {
+          _tableData = jsonData;
+        });
+      } else {
+        print('Failed to fetch table data. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception occurred while fetching table data: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Data Fetcher'),
+        title: const Text('Table Data'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/fetch_data');
-          },
-          child: const Text('Fetch Data'),
-        ),
-     ),
+      body: ListView.builder(
+        itemCount: _tableData.length,
+        itemBuilder: (context, index) {
+          final MILL_NAME = _tableData[index][0];
+          final PRODUCTION = _tableData[index][1];
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 1),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  MILL_NAME,
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                Text(
+                  'Production: $PRODUCTION',
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -7,7 +7,6 @@ import 'package:sail_test/presentation/call_sms_screen/call_sms_screen.dart';
 import 'package:sail_test/presentation/report_screen/report_screen.dart';
 import 'package:sail_test/presentation/app_navigation_screen/app_navigation_screen.dart';
 import 'package:sail_test/splash_screen.dart';
-import 'package:sail_test/presentation/mills_screen/fetch_data.dart';
 
 class AppRoutes {
   static const String splashScreen = '/splash_screen';
@@ -17,8 +16,6 @@ class AppRoutes {
   static const String loginScreen = '/login_screen';
 
   static const String qrCodeScreen = '/qr_code_screen';
-
-  static const String fetchDataScreen = '/fetch_data';
 
   static const String landingPageScreen = '/landing_page_screen';
 
@@ -32,7 +29,6 @@ class AppRoutes {
     splashScreen: (context) => SplashScreen(),
     loginScreen: (context) => LoginScreen(),
     millsScreen: (context) => MillScreen(),
-    fetchDataScreen: (context) => TableDataPage(),
     qrCodeScreen: (context) => QrCodeScreen(),
     landingPageScreen: (context) => LandingPageScreen(),
     callSmsScreen: (context) => CallSmsScreen(),
