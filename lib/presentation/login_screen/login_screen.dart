@@ -75,7 +75,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: getHorizontalSize(42),
-        vertical: getVerticalSize(2),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
