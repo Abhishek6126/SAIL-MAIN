@@ -185,11 +185,11 @@ class _MillScreenState extends State<MillScreen> {
                             },
                             itemCount: _tableData.length,
                             itemBuilder: (context, index) {
-                              final MILL_NAME = _tableData[index][0].toString();
+                              final millName = _tableData[index][0].toString();
                               final PRODUCTION = _tableData[index][1].toString();
                               String mill = '';
                               String production = '';
-                              mill = MILL_NAME;
+                              mill = millName;
                               production = PRODUCTION;
 
                               return MillScreenWidget(
