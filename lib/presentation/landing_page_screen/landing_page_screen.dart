@@ -71,7 +71,7 @@ class LandingPageScreen extends StatelessWidget {
           ),
           //body:
           Container(
-            padding: EdgeInsets.fromLTRB(14, MediaQuery.of(context).padding.top + 30, 14, 30),
+            padding: EdgeInsets.fromLTRB(14, MediaQuery.of(context).padding.top + 25, 14, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -128,7 +128,7 @@ class LandingPageScreen extends StatelessWidget {
                   child: StaggeredGridView.countBuilder(
                     shrinkWrap: true,
                     primary: false,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: BouncingScrollPhysics(),
                     crossAxisCount: 2,
                     crossAxisSpacing: getHorizontalSize(11),
                     mainAxisSpacing: getHorizontalSize(11),

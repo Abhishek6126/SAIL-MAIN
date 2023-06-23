@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../core/app_export.dart';
+import '../mills_screen/widgets/millscreenwidget.dart';
 
 class MillScreen extends StatefulWidget {
   const MillScreen({Key? key}) : super(key: key);
@@ -134,36 +135,102 @@ class _MillScreenState extends State<MillScreen> {
                       ],
                     ),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: _tableData.length,
-                    itemBuilder: (context, index) {
-                      final MILL_NAME = _tableData[index][0];
-                      final PRODUCTION = _tableData[index][1];
-
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 1),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              MILL_NAME,
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                            Text(
-                              'Production: $PRODUCTION',
-                              style: const TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Container(
+                    width: getHorizontalSize(330),
+                    decoration: AppDecoration.outlineBlack9003f3.copyWith(
+                    borderRadius: BorderRadiusStyle.roundedBorder13, color: Color.fromRGBO(180, 219, 255, 1),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20), // Add padding
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align texts to start and end
+                      crossAxisAlignment: CrossAxisAlignment.center, // Align texts vertically in the middle
+                      children: [
+                        Text(
+                          'MILL NAME',
+                          style: TextStyle(
+                            color: Color.fromRGBO(23, 144, 255, 1),
+                            fontSize: getFontSize(23),
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      );
-                    },
+                        Text(
+                          'PRODUCTION',
+                          style: TextStyle(
+                            color: ColorConstant.black900,
+                            fontSize: getFontSize(23),
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w700,
+                           ),
+                         ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
+                  SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: getHorizontalSize(12),
+                          ),
+                          child: ListView.separated(
+                            physics: BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) {
+                              return SizedBox(height: getVerticalSize(12));
+                            },
+                            itemCount: _tableData.length,
+                            itemBuilder: (context, index) {
+                              final MILL_NAME = _tableData[index][0].toString();
+                              final PRODUCTION = _tableData[index][1].toString();
+                              String mill = '';
+                              String production = '';
+                              mill = MILL_NAME;
+                              production = PRODUCTION;
+
+                              return MillScreenWidget(
+                                mill: mill,
+                                production: production,
+                              );
+                            },
+                          ),
+                        ),
+                      //   ListView.builder(
+                      //   shrinkWrap: true,
+                      //   itemCount: _tableData.length,
+                      //   itemBuilder: (context, index) {
+                      //     final MILL_NAME = _tableData[index][0];
+                      //     final PRODUCTION = _tableData[index][1];
+
+                      //     return Padding(
+                      //       padding: const EdgeInsets.symmetric(vertical: 1),
+                      //       child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Text(
+                      //             MILL_NAME,
+                      //             style: const TextStyle(
+                      //               fontSize: 20,
+                      //             ),
+                      //           ),
+                      //           Text(
+                      //             'Production: $PRODUCTION',
+                      //             style: const TextStyle(
+                      //               fontSize: 20,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
+                    ],
+                ),
+              )],
               ),
             ),
           ),
@@ -173,3 +240,4 @@ class _MillScreenState extends State<MillScreen> {
   }
 
 }
+

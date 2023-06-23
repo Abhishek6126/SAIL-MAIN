@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sail_test/core/app_export.dart';
 import 'package:sail_test/widgets/custom_text_form_field.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ReportScreen extends StatefulWidget {
   ReportScreen({Key? key}) : super(key: key);
@@ -18,7 +19,6 @@ class _ReportScreenState extends State<ReportScreen> {
   TextEditingController groupsixteenController = TextEditingController();
   File? pickedImage;
 
-
   Future<void> _openCamera() async {
     final imagePicker = ImagePicker();
     final pickedImageFile =
@@ -30,24 +30,13 @@ class _ReportScreenState extends State<ReportScreen> {
       });
     }
   }
+
   Future<void> _uploadImage() async {
     if (pickedImage == null) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Please select an image.'),
-            actions: [
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        },
+      Fluttertoast.showToast(
+        msg: 'Please upload image!',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
       );
       return;
     }
@@ -55,7 +44,8 @@ class _ReportScreenState extends State<ReportScreen> {
     final url = 'http://192.168.43.202:3000/upload';
 
     var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.files.add(await http.MultipartFile.fromPath('image', pickedImage!.path));
+    request.files
+        .add(await http.MultipartFile.fromPath('image', pickedImage!.path));
     request.fields['description'] = groupsixteenController.text;
     request.fields['location'] = locationController.text;
     request.fields['time'] = timeController.text;
@@ -63,40 +53,17 @@ class _ReportScreenState extends State<ReportScreen> {
     var response = await request.send();
 
     if (response.statusCode == 200) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Success'),
-            content: Text('Image uploaded successfully.'),
-            actions: [
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        },
+      Fluttertoast.showToast(
+        msg: 'Report uploaded successfully!',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
       );
+      Navigator.pop(context);
     } else {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Error'),
-            content: Text('Failed to upload image.'),
-            actions: [
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        },
+      Fluttertoast.showToast(
+        msg: 'Failed to upload report!',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
       );
     }
   }
@@ -151,8 +118,7 @@ class _ReportScreenState extends State<ReportScreen> {
                         children: [
                           Container(
                             width: getHorizontalSize(162),
-                            margin:
-                                EdgeInsets.only(left: 9, top: 5, bottom: 2),
+                            margin: EdgeInsets.only(left: 9, top: 5, bottom: 2),
                             child: RichText(
                               text: TextSpan(
                                 children: [
@@ -196,8 +162,8 @@ class _ReportScreenState extends State<ReportScreen> {
                             ),
                             child: CustomImageView(
                               imagePath: ImageConstant.img2448914383x81,
-                              radius: BorderRadius.circular(
-                                  getHorizontalSize(22)),
+                              radius:
+                                  BorderRadius.circular(getHorizontalSize(22)),
                             ),
                           ),
                         ],
@@ -306,7 +272,8 @@ class _ReportScreenState extends State<ReportScreen> {
                               ),
                             ),
                             TextSpan(
-                              text: "below image to capture image of event (optional)",
+                              text:
+                                  "below image to capture image of event",
                               style: TextStyle(
                                 color: ColorConstant.gray80001,
                                 fontSize: getFontSize(24),
@@ -320,8 +287,8 @@ class _ReportScreenState extends State<ReportScreen> {
                       ),
                     ),
                     Container(
-                      height: getVerticalSize(200),
-                      width: getHorizontalSize(170),
+                      height: getVerticalSize(220),
+                      width: getHorizontalSize(210),
                       margin: EdgeInsets.only(top: 24),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
@@ -344,10 +311,12 @@ class _ReportScreenState extends State<ReportScreen> {
                         ),
                       ),
                     ),
-                    
+
                     SizedBox(height: 10),
                     InkWell(
-                      onTap: _uploadImage,
+                      onTap: () {
+                        _uploadImage();
+                      },
                       child: Container(
                         width: getHorizontalSize(296),
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 5),

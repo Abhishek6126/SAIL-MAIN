@@ -26,9 +26,9 @@ class CallsmsItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: getHorizontalSize(151),
+            width: getHorizontalSize(181),
             child: Padding(
-              padding: EdgeInsets.only(top: 19, left: 20), // Add top padding
+              padding: EdgeInsets.only(top: 19, left: 10), // Add top padding
               child: RichText(
                 text: TextSpan(
                   children: [
@@ -58,7 +58,7 @@ class CallsmsItemWidget extends StatelessWidget {
           ),
           SizedBox(
               width:
-                  getHorizontalSize(30)), // Add spacing between text and icons
+                  getHorizontalSize(10)), // Add spacing between text and icons
           GestureDetector(
             onTap: ()
                 // Handle call icon click here
@@ -72,8 +72,8 @@ class CallsmsItemWidget extends StatelessWidget {
             },
             child: CustomImageView(
               imagePath: ImageConstant.imgCallicon1,
-              height: getVerticalSize(62),
-              width: getHorizontalSize(50),
+              height: getVerticalSize(52),
+              width: getHorizontalSize(40),
               radius: BorderRadius.circular(getHorizontalSize(11)),
               margin: getMargin(top: 27, bottom: 14),
             ),
@@ -90,9 +90,9 @@ class CallsmsItemWidget extends StatelessWidget {
             },
             child: CustomImageView(
               imagePath: ImageConstant.imgSms1,
-              height: getSize(62),
-              width: getSize(62),
-              margin: getMargin(top: 27, bottom: 14, right: 1),
+              height: getSize(52),
+              width: getSize(52),
+              margin: getMargin(top: 27, bottom: 4, right: 1),
             ),
           ),
         ],
