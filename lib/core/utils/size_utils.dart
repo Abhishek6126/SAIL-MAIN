@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 Size size = WidgetsBinding.instance.window.physicalSize /
     WidgetsBinding.instance.window.devicePixelRatio;
 
-const num FIGMA_DESIGN_WIDTH = 360;
-const num FIGMA_DESIGN_HEIGHT = 800;
-const num FIGMA_DESIGN_STATUS_BAR = 0;
+const num WIDTH = 360;
+const num HEIGHT = 800;
+const num STATUS_BAR = 0;
 
 double get width {
   return size.width;
@@ -23,11 +23,11 @@ double get height {
 }
 
 double getHorizontalSize(double px) {
-  return ((px * width) / FIGMA_DESIGN_WIDTH);
+  return ((px * width) / WIDTH);
 }
 
 double getVerticalSize(double px) {
-  return ((px * height) / (FIGMA_DESIGN_HEIGHT - FIGMA_DESIGN_STATUS_BAR));
+  return ((px * height) / (HEIGHT - STATUS_BAR));
 }
 
 double getSize(double px) {
