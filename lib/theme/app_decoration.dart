@@ -29,42 +29,6 @@ class AppDecoration {
           ),
         ],
       );
-  static BoxDecoration get blue => BoxDecoration(
-        color: ColorConstant.blue500,
-        boxShadow: [
-          BoxShadow(
-            color: ColorConstant.black9003f,
-            spreadRadius: getHorizontalSize(
-              2,
-            ),
-            blurRadius: getHorizontalSize(
-              2,
-            ),
-            offset: Offset(
-              0,
-              4,
-            ),
-          ),
-        ],
-      );
-  static BoxDecoration get lightblue => BoxDecoration(
-        color: ColorConstant.lightblue50,
-        boxShadow: [
-          BoxShadow(
-            color: ColorConstant.black9003f,
-            spreadRadius: getHorizontalSize(
-              2,
-            ),
-            blurRadius: getHorizontalSize(
-              2,
-            ),
-            offset: Offset(
-              0,
-              4,
-            ),
-          ),
-        ],
-      );
   static BoxDecoration get txtFillBlue900 => BoxDecoration(
         color: ColorConstant.blue900,
       );

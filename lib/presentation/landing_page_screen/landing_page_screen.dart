@@ -8,11 +8,13 @@ class LandingPageItemWidget extends StatelessWidget {
     required this.onTap,
     required this.imagePath,
     required this.cardText,
+    required this.backgroundColor,
   }) : super(key: key);
 
   final VoidCallback? onTap;
   final String imagePath;
   final String cardText;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +22,25 @@ class LandingPageItemWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(10),
-        decoration: AppDecoration.blue.copyWith(
-          borderRadius: BorderRadiusStyle.roundedBorder25,
-        ),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(getHorizontalSize(25)),
+          boxShadow: [
+            BoxShadow(
+              color: ColorConstant.black9003f,
+              spreadRadius: getHorizontalSize(
+                2,
+              ),
+              blurRadius: getHorizontalSize(
+                2,
+              ),
+              offset: Offset(
+                0,
+                4,
+            ),
+          ),
+        ],
+      ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,7 +158,7 @@ class LandingPageScreen extends StatelessWidget {
                       VoidCallback? onTap;
                       String imagePath = '';
                       String cardText = '';
-
+                      Color tileColor = Colors.blue;
                       if (index == 0) {
                         onTap = () => onTapColumnqrcodeone(context);
                         imagePath = ImageConstant.imgQrcode1;
@@ -149,10 +167,12 @@ class LandingPageScreen extends StatelessWidget {
                         onTap = () => onTapColumnmilldata(context);
                         imagePath = ImageConstant.img98591;
                         cardText = "Mills\nReport";
+                        tileColor = const Color.fromRGBO(158, 208, 255, 1);
                       } else if (index == 2) {
                         onTap = () => onTapColumnreport(context);
                         imagePath = ImageConstant.img2448914383x81;
                         cardText = "Grievance Report";
+                        tileColor = const Color.fromRGBO(158, 208, 255, 1);
                       } else if (index == 3) {
                         onTap = () => onTapColumncallsms(context);
                         imagePath = ImageConstant.imgCall1;
@@ -163,6 +183,7 @@ class LandingPageScreen extends StatelessWidget {
                         onTap: onTap,
                         imagePath: imagePath,
                         cardText: cardText,
+                        backgroundColor: tileColor,
                       );
                     },
                   ),
