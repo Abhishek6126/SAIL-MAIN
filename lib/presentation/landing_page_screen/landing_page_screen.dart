@@ -20,7 +20,7 @@ class LandingPageItemWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(10),
-        decoration: AppDecoration.outlineBlack9003f1.copyWith(
+        decoration: AppDecoration.blue.copyWith(
           borderRadius: BorderRadiusStyle.roundedBorder25,
         ),
         child: Column(
