@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import '../../core/app_export.dart';
 import '../call_sms_screen/widgets/callsms_item_widget.dart';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 class CallSmsScreen extends StatefulWidget {
   const CallSmsScreen({Key? key}) : super(key: key);
 
@@ -11,6 +13,27 @@ class CallSmsScreen extends StatefulWidget {
 
 class _CallSmsScreenState extends State<CallSmsScreen> {
   double appBarHeight = 260; // Initial height of the app bar
+  List<dynamic> _tableData = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchTableData();
+  }
+  Future<void> fetchTableData() async {
+    try {
+      final response = await http.get(Uri.parse('http://192.168.43.202:3000/call_data'));
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        setState(() {
+          _tableData = jsonData;
+        });
+      } else {
+        print('Failed to fetch table data. Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception occurred while fetching table data: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,38 +77,17 @@ class _CallSmsScreenState extends State<CallSmsScreen> {
                         separatorBuilder: (context, index) {
                           return SizedBox(height: getVerticalSize(12));
                         },
-                        itemCount: 6,
+                        itemCount: _tableData.length,
                         itemBuilder: (context, index) {
                           String name = '';
                           String position = '';
                           String phoneNumber = '';
-
-                          if (index == 0) {
-                            name = 'Arun Kotnis';
-                            position = 'General Manager';
-                            phoneNumber = '9407982428';
-                          } else if (index == 1) {
-                            name = 'Akshat Pandey';
-                            position = 'Intern';
-                            phoneNumber = '23232';
-                          } else if (index == 2) {
-                            name = 'Abhishek Pandey';
-                            position = 'Intern';
-                            phoneNumber = '232323';
-                          } else if (index == 3) {
-                            name = 'Emily Brown';
-                            position = 'Analyst';
-                            phoneNumber = '1234890';
-                          } else if (index == 4) {
-                            name = 'David Wilson';
-                            position = 'Coordinator';
-                            phoneNumber = '123643637890';
-                          } else if (index == 5) {
-                            name = 'Sarah Davis';
-                            position = 'Assistant';
-                            phoneNumber = '1212367890';
-                          }
-
+                          final nameintable = _tableData[index][0].toString();
+                          final positionintable = _tableData[index][1].toString();
+                          final phonenumberintable = _tableData[index][1].toString();
+                          name=nameintable;
+                          position=positionintable;
+                          phoneNumber=phonenumberintable;
                           return CallsmsItemWidget(
                             name: name,
                             position: position,
