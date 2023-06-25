@@ -115,7 +115,7 @@ class LandingPageScreen extends StatelessWidget {
                       ),
                       CustomImageView(
                         imagePath: ImageConstant.imgEllipse1,
-                        height: getVerticalSize(101),
+                        height: getVerticalSize(87),
                         width: getHorizontalSize(71),
                         radius: BorderRadius.circular(getHorizontalSize(33)),
                         margin: EdgeInsets.only(top: 5, bottom: 4),
