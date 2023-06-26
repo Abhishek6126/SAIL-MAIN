@@ -19,6 +19,7 @@ class _CallSmsScreenState extends State<CallSmsScreen> {
     super.initState();
     fetchTableData();
   }
+
   Future<void> fetchTableData() async {
     try {
       final response = await http.get(Uri.parse('$apiUrl/call_data'));
@@ -83,11 +84,13 @@ class _CallSmsScreenState extends State<CallSmsScreen> {
                           String position = '';
                           String phoneNumber = '';
                           final nameintable = _tableData[index][0].toString();
-                          final positionintable = _tableData[index][1].toString();
-                          final phonenumberintable = _tableData[index][1].toString();
-                          name=nameintable;
-                          position=positionintable;
-                          phoneNumber=phonenumberintable;
+                          final positionintable =
+                              _tableData[index][1].toString();
+                          final phonenumberintable =
+                              _tableData[index][2].toString();
+                          name = nameintable;
+                          position = positionintable;
+                          phoneNumber = phonenumberintable;
                           return CallsmsItemWidget(
                             name: name,
                             position: position,
@@ -106,104 +109,103 @@ class _CallSmsScreenState extends State<CallSmsScreen> {
                 child: PreferredSize(
                   preferredSize: Size.fromHeight(getVerticalSize(140)),
                   child: NotificationListener<ScrollNotification>(
-                    onNotification: (scrollNotification) {
-                      if (scrollNotification is ScrollUpdateNotification) {
-                        setState(() {
-                          appBarHeight =
-                              160 - scrollNotification.metrics.pixels;
-                          if (appBarHeight < 80) {
-                            appBarHeight = 80;
-                          }
-                        });
-                      }
-                      return true;
-                    },
-                    child: Container(
-                      padding: getPadding(
-                        left: 18,
-                        top: 4,
-                        right: 18,
-                        bottom: 4,
-                      ),
-                      decoration: AppDecoration.outlineBlack9003f.copyWith(
-                        borderRadius: BorderRadiusStyle.roundedBorder32,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: getHorizontalSize(
-                              154,
-                            ),
-                            margin: getMargin(
-                              left: 5,
-                              top: 5,
-                            ),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "CALL/SMS\n",
-                                    style: TextStyle(
-                                      color: ColorConstant.black900,
-                                      fontSize: getFontSize(
-                                        32,
+                      onNotification: (scrollNotification) {
+                        if (scrollNotification is ScrollUpdateNotification) {
+                          setState(() {
+                            appBarHeight =
+                                160 - scrollNotification.metrics.pixels;
+                            if (appBarHeight < 80) {
+                              appBarHeight = 80;
+                            }
+                          });
+                        }
+                        return true;
+                      },
+                      child: Container(
+                        padding: getPadding(
+                          left: 18,
+                          top: 4,
+                          right: 18,
+                          bottom: 4,
+                        ),
+                        decoration: AppDecoration.outlineBlack9003f.copyWith(
+                          borderRadius: BorderRadiusStyle.roundedBorder32,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: getHorizontalSize(
+                                154,
+                              ),
+                              margin: getMargin(
+                                left: 5,
+                                top: 5,
+                              ),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "CALL/SMS\n",
+                                      style: TextStyle(
+                                        color: ColorConstant.black900,
+                                        fontSize: getFontSize(
+                                          32,
+                                        ),
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w700,
                                       ),
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  TextSpan(
-                                    text: "PEERS",
-                                    style: TextStyle(
-                                      color: ColorConstant.blue50001,
-                                      fontSize: getFontSize(
-                                        32,
+                                    TextSpan(
+                                      text: "PEERS",
+                                      style: TextStyle(
+                                        color: ColorConstant.blue50001,
+                                        fontSize: getFontSize(
+                                          32,
+                                        ),
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w700,
                                       ),
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w700,
                                     ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(22),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 1,
+                                    blurRadius: 5,
+                                    offset: Offset(0, 3),
                                   ),
                                 ],
                               ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(22),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 5,
-                                  offset: Offset(0, 3),
+                              child: CustomImageView(
+                                imagePath: ImageConstant.imgCall178x78,
+                                height: getVerticalSize(
+                                  95,
                                 ),
-                              ],
-                            ),
-                            child: CustomImageView(
-                              imagePath: ImageConstant.imgCall178x78,
-                              height: getVerticalSize(
-                                95,
-                              ),
-                              width: getHorizontalSize(
-                                81,
-                              ),
-                              radius: BorderRadius.circular(
-                                getHorizontalSize(
-                                  22,
+                                width: getHorizontalSize(
+                                  81,
+                                ),
+                                radius: BorderRadius.circular(
+                                  getHorizontalSize(
+                                    22,
+                                  ),
+                                ),
+                                margin: getMargin(
+                                  top: 5,
+                                  bottom: 6,
                                 ),
                               ),
-                              margin: getMargin(
-                                top: 5,
-                                bottom: 6,
-                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ),
+                          ],
+                        ),
+                      )),
                 ),
               ),
             ],
