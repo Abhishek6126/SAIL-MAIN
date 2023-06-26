@@ -22,7 +22,7 @@ class _MillScreenState extends State<MillScreen> {
 
   Future<void> fetchTableData() async {
     try {
-      final response = await http.get(Uri.parse('http://192.168.43.202:3000/MILL_DATA'));
+      final response = await http.get(Uri.parse('$apiUrl/MILL_DATA'));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         setState(() {

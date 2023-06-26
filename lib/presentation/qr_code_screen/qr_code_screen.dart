@@ -41,7 +41,7 @@ class QrCodeScreenState extends State<QrCodeScreen> {
   Future<void> sendQRDataToServer() async {
     if (_scanBarcode.isNotEmpty) {
       final url = Uri.parse(
-          'http://192.168.43.202:3000/qrdata'); // Replace with your Node.js server endpoint
+          '$apiUrl/qrdata'); // Replace with your Node.js server endpoint
       final headers = {'Content-Type': 'application/json'};
       final body = json.encode({'data': _scanBarcode});
 

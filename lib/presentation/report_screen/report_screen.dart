@@ -41,7 +41,7 @@ class _ReportScreenState extends State<ReportScreen> {
       return;
     }
 
-    final url = 'http://192.168.43.202:3000/upload';
+    final url = '$apiUrl/upload';
 
     var request = http.MultipartRequest('POST', Uri.parse(url));
     request.files
