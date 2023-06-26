@@ -6,3 +6,5 @@ export 'package:sail_test/theme/app_style.dart';
 export 'package:sail_test/theme/app_decoration.dart';
 export 'package:sail_test/routes/app_routes.dart';
 export 'package:sail_test/core/utils/date_time_utils.dart';
+
+const String apiUrl = 'http://192.168.43.202:3000';

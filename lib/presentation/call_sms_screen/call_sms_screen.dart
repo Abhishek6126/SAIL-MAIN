@@ -21,7 +21,7 @@ class _CallSmsScreenState extends State<CallSmsScreen> {
   }
   Future<void> fetchTableData() async {
     try {
-      final response = await http.get(Uri.parse('http://192.168.43.202:3000/call_data'));
+      final response = await http.get(Uri.parse('$apiUrl/call_data'));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
         setState(() {
